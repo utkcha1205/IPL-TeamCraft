@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { Suspense, useState, useMemo } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { getAllPlayers } from "@/data/players";
@@ -39,6 +39,18 @@ function groupByRole(players: ScoredPlayer[]) {
 }
 
 export default function DreamTeamPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: 'var(--bg-page)' }}>
+        <p style={{ color: 'var(--text-muted)' }}>Loading Dream Team…</p>
+      </div>
+    }>
+      <DreamTeamContent />
+    </Suspense>
+  );
+}
+
+function DreamTeamContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
