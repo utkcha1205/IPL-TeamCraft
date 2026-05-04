@@ -67,7 +67,7 @@ function DreamTeamContent() {
       return selectDreamXI(allPlayers, ta, tb, s || undefined);
     }
     return null;
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [searchParams]);
 
   const [result, setResult] = useState<DreamXIResult | null>(initialResult);
 
