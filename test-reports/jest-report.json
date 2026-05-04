@@ -1,0 +1,38 @@
+{
+  "numPassedTests": 42,
+  "numFailedTests": 1,
+  "numPendingTests": 0,
+  "numTotalTests": 43,
+  "startTime": 1773812000000,
+  "endTime": 1773812004500,
+  "testResults": [
+    {
+      "name": "src/utils/validation.test.ts",
+      "assertionResults": [
+        {
+          "fullName": "validation > validates player name format",
+          "status": "passed",
+          "duration": 12,
+          "failureMessages": []
+        },
+        {
+          "fullName": "validation > rejects empty player name",
+          "status": "passed",
+          "duration": 3,
+          "failureMessages": []
+        }
+      ]
+    },
+    {
+      "name": "src/utils/scoring.test.ts",
+      "assertionResults": [
+        {
+          "fullName": "scoring > calculates strike rate correctly for edge case",
+          "status": "failed",
+          "duration": 8,
+          "failureMessages": ["Expected 150.5 but received 150.49999999999997"]
+        }
+      ]
+    }
+  ]
+}

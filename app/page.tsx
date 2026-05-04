@@ -18,6 +18,7 @@ const PAGE_SIZE = 24;
 
 export default function Home() {
   const router = useRouter();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const [searchQuery, setSearchQueryRaw] = useState("");
   const [activeFilters, setActiveFiltersRaw] = useState<FilterState>({
@@ -103,49 +104,31 @@ export default function Home() {
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: 'var(--bg-page)' }}>
-      <header style={{ backgroundColor: 'var(--bg-header)' }} className="shadow-sm">
-        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 flex items-center justify-between">
-          <h1 className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>IPL Player Stats</h1>
-          <div className="flex items-center gap-3">
-            <Link
-              href="/dream-team"
-              data-testid="dream-team-link"
-              className="rounded-lg px-4 py-2 text-sm font-medium"
-              style={{
-                backgroundColor: 'var(--bg-card)',
-                color: 'var(--text-primary)',
-                border: '1px solid var(--border-color)',
-              }}
-            >
-              Dream Team
-            </Link>
-            <Link
-              href="/champions"
-              data-testid="champions-link"
-              className="rounded-lg px-4 py-2 text-sm font-medium"
-              style={{
-                backgroundColor: 'var(--bg-card)',
-                color: 'var(--text-primary)',
-                border: '1px solid var(--border-color)',
-              }}
-            >
-              Champions
-            </Link>
-            <Link
-              href="/test-dashboard"
-              data-testid="test-dashboard-link"
-              className="rounded-lg px-4 py-2 text-sm font-medium"
-              style={{
-                backgroundColor: 'var(--bg-card)',
-                color: 'var(--text-primary)',
-                border: '1px solid var(--border-color)',
-              }}
-            >
-              Test Dashboard
-            </Link>
+      <header style={{ backgroundColor: 'var(--bg-header)' }} className="shadow-sm sticky top-0 z-50">
+        <div className="mx-auto max-w-7xl px-4 py-4 sm:py-6 sm:px-6 lg:px-8 flex items-center justify-between">
+          <h1 className="text-xl sm:text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>IPL Player Stats</h1>
+          <div className="hidden sm:flex items-center gap-3">
+            <Link href="/dream-team" data-testid="dream-team-link" className="rounded-lg px-4 py-2 text-sm font-medium card-hover" style={{ backgroundColor: 'var(--bg-card)', color: 'var(--text-primary)', border: '1px solid var(--border-color)' }}>Dream Team</Link>
+            <Link href="/champions" data-testid="champions-link" className="rounded-lg px-4 py-2 text-sm font-medium card-hover" style={{ backgroundColor: 'var(--bg-card)', color: 'var(--text-primary)', border: '1px solid var(--border-color)' }}>Champions</Link>
+            <Link href="/test-dashboard" data-testid="test-dashboard-link" className="rounded-lg px-4 py-2 text-sm font-medium card-hover" style={{ backgroundColor: 'var(--bg-card)', color: 'var(--text-primary)', border: '1px solid var(--border-color)' }}>Test Dashboard</Link>
             <ThemeToggle />
           </div>
+          <div className="flex sm:hidden items-center gap-2">
+            <ThemeToggle />
+            <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="p-2 rounded-lg" style={{ color: 'var(--text-primary)' }} aria-label="Toggle menu">
+              <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d={mobileMenuOpen ? "M6 6l12 12M6 18L18 6" : "M4 6h16M4 12h16M4 18h16"} /></svg>
+            </button>
+          </div>
         </div>
+        {mobileMenuOpen && (
+          <div className="sm:hidden mobile-nav-menu border-t" style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-header)' }}>
+            <div className="px-4 py-3 space-y-2">
+              <Link href="/dream-team" className="block rounded-lg px-4 py-2.5 text-sm font-medium" style={{ backgroundColor: 'var(--bg-card)', color: 'var(--text-primary)', border: '1px solid var(--border-color)' }} onClick={() => setMobileMenuOpen(false)}>Dream Team</Link>
+              <Link href="/champions" className="block rounded-lg px-4 py-2.5 text-sm font-medium" style={{ backgroundColor: 'var(--bg-card)', color: 'var(--text-primary)', border: '1px solid var(--border-color)' }} onClick={() => setMobileMenuOpen(false)}>Champions</Link>
+              <Link href="/test-dashboard" className="block rounded-lg px-4 py-2.5 text-sm font-medium" style={{ backgroundColor: 'var(--bg-card)', color: 'var(--text-primary)', border: '1px solid var(--border-color)' }} onClick={() => setMobileMenuOpen(false)}>Test Dashboard</Link>
+            </div>
+          </div>
+        )}
       </header>
 
       <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
@@ -158,7 +141,7 @@ export default function Home() {
             seasons={seasons}
             secondaryRoles={secondaryRoles}
           />
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
             <SortControls sortConfig={sortConfig} onChange={setSortConfig} />
             <button
               type="button"
@@ -172,17 +155,18 @@ export default function Home() {
         </div>
 
         {displayedPlayers.length === 0 ? (
-          <p className="mt-8 text-center" style={{ color: 'var(--text-muted)' }}>No results found</p>
+          <p className="mt-8 text-center animate-fade-in" style={{ color: 'var(--text-muted)' }}>No results found</p>
         ) : (
-          <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {visiblePlayers.map((player) => (
-              <PlayerCard
-                key={player.id}
-                player={player}
-                season={activeFilters.season ?? undefined}
-                selected={selectedForComparison.includes(player.id)}
-                onToggleSelect={handleToggleSelect}
-              />
+          <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {visiblePlayers.map((player, i) => (
+              <div key={player.id} className={`animate-fade-in-up stagger-${(i % 6) + 1} card-hover`}>
+                <PlayerCard
+                  player={player}
+                  season={activeFilters.season ?? undefined}
+                  selected={selectedForComparison.includes(player.id)}
+                  onToggleSelect={handleToggleSelect}
+                />
+              </div>
             ))}
           </div>
         )}

@@ -93,9 +93,9 @@ export default function TestDashboard() {
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: "var(--bg-page)" }}>
-      <header style={{ backgroundColor: "var(--bg-header)" }} className="shadow-sm">
-        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 flex items-center justify-between">
-          <h1 className="text-2xl font-bold" style={{ color: "var(--text-primary)" }}>
+      <header style={{ backgroundColor: "var(--bg-header)" }} className="shadow-sm sticky top-0 z-50">
+        <div className="mx-auto max-w-7xl px-4 py-4 sm:py-6 sm:px-6 lg:px-8 flex items-center justify-between">
+          <h1 className="text-xl sm:text-2xl font-bold" style={{ color: "var(--text-primary)" }}>
             Test Dashboard
           </h1>
           <div className="flex items-center gap-3">
@@ -139,9 +139,11 @@ export default function TestDashboard() {
 
             <CoverageDisplay coveragePercent={coveragePercent} />
 
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-              {results.map((result) => (
-                <RunnerCard key={result.runnerType} result={result} />
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {results.map((result, i) => (
+                <div key={result.runnerType} className={`animate-fade-in-up stagger-${(i % 6) + 1} card-hover`}>
+                  <RunnerCard result={result} />
+                </div>
               ))}
             </div>
 
@@ -230,7 +232,7 @@ export default function TestDashboard() {
                   >
                     All Tests ({filteredTests.length})
                   </h2>
-                  <div className="flex gap-2">
+                  <div className="flex flex-wrap gap-2">
                     <select
                       value={filterRunner}
                       onChange={(e) => setFilterRunner(e.target.value)}

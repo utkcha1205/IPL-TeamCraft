@@ -108,9 +108,9 @@ export default function ChampionsPage() {
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: "var(--bg-page)" }}>
-      <header style={{ backgroundColor: "var(--bg-header)" }} className="shadow-sm">
-        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 flex items-center justify-between">
-          <h1 className="text-2xl font-bold" style={{ color: "var(--text-primary)" }}>
+      <header style={{ backgroundColor: "var(--bg-header)" }} className="shadow-sm sticky top-0 z-50">
+        <div className="mx-auto max-w-7xl px-4 py-4 sm:py-6 sm:px-6 lg:px-8 flex items-center justify-between">
+          <h1 className="text-xl sm:text-2xl font-bold" style={{ color: "var(--text-primary)" }}>
             Champions Leaderboard
           </h1>
           <div className="flex items-center gap-3">
@@ -166,31 +166,32 @@ export default function ChampionsPage() {
         ) : (
           <>
             {/* Hero Podium */}
-            <section className="mb-10">
+            <section className="mb-10 animate-fade-in-up">
               <HeroPodium topPerformers={heroPodiumPlayers} />
             </section>
 
             {/* Leaderboard Sections */}
             {sections.map((section) => (
-              <section key={section.title} className="mb-10">
+              <section key={section.title} className="mb-10 animate-fade-in">
                 <h2
                   className="text-xl font-bold mb-4"
                   style={{ color: "var(--text-primary)" }}
                 >
                   {section.title}
                 </h2>
-                <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                  {section.categories.map((cat) => {
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                  {section.categories.map((cat, i) => {
                     const result = allResults.get(cat.id);
                     return (
-                      <LeaderboardCard
-                        key={cat.id}
-                        category={cat}
-                        best={result?.best ?? null}
-                        average={result?.average ?? null}
-                        worst={result?.worst ?? null}
-                        isEmpty={!result || result.rankings.length === 0}
-                      />
+                      <div key={cat.id} className={`animate-fade-in-up stagger-${(i % 6) + 1} card-hover`}>
+                        <LeaderboardCard
+                          category={cat}
+                          best={result?.best ?? null}
+                          average={result?.average ?? null}
+                          worst={result?.worst ?? null}
+                          isEmpty={!result || result.rankings.length === 0}
+                        />
+                      </div>
                     );
                   })}
                 </div>

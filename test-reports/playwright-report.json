@@ -1,0 +1,56 @@
+{
+  "config": {},
+  "suites": [
+    {
+      "title": "E2E Tests",
+      "specs": [
+        {
+          "title": "homepage loads correctly",
+          "tests": [{ "status": "expected", "results": [{ "duration": 1230 }] }]
+        },
+        {
+          "title": "navigation works between pages",
+          "tests": [{ "status": "expected", "results": [{ "duration": 2150 }] }]
+        },
+        {
+          "title": "player detail page renders stats",
+          "tests": [{ "status": "expected", "results": [{ "duration": 1870 }] }]
+        },
+        {
+          "title": "search filters players correctly",
+          "tests": [{ "status": "expected", "results": [{ "duration": 980 }] }]
+        },
+        {
+          "title": "dream team page loads",
+          "tests": [{ "status": "expected", "results": [{ "duration": 1540 }] }]
+        }
+      ],
+      "suites": []
+    },
+    {
+      "title": "Champions Page",
+      "specs": [
+        {
+          "title": "leaderboard renders categories",
+          "tests": [{ "status": "expected", "results": [{ "duration": 2340 }] }]
+        },
+        {
+          "title": "season filter updates results",
+          "tests": [{ "status": "expected", "results": [{ "duration": 1120 }] }]
+        },
+        {
+          "title": "podium displays top 3 players",
+          "tests": [{ "status": "expected", "results": [{ "duration": 1110 }] }]
+        }
+      ],
+      "suites": []
+    }
+  ],
+  "stats": {
+    "expected": 8,
+    "unexpected": 0,
+    "flaky": 0,
+    "skipped": 0,
+    "duration": 12340
+  }
+}

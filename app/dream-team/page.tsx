@@ -144,8 +144,8 @@ function DreamTeamContent() {
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: "var(--bg-page)" }}>
-      <header style={{ backgroundColor: "var(--bg-header)" }} className="shadow-sm">
-        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 flex items-center justify-between">
+      <header style={{ backgroundColor: "var(--bg-header)" }} className="shadow-sm sticky top-0 z-50">
+        <div className="mx-auto max-w-7xl px-4 py-4 sm:py-6 sm:px-6 lg:px-8 flex items-center justify-between">
           <div>
             <nav className="mb-1 flex items-center gap-1 text-sm" style={{ color: "var(--text-muted)" }} aria-label="Breadcrumb">
               <Link href="/" className="hover:underline" style={{ color: "var(--text-secondary)" }}>Dashboard</Link>
@@ -268,15 +268,16 @@ function renderRoleSection(title: string, players: ScoredPlayer[], backParams: s
       >
         {title}
       </h2>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {players.map((sp) => (
-          <DreamTeamCard
-            key={sp.player.id}
-            player={sp.player}
-            score={sp.score}
-            teamLabel={sp.teamLabel}
-            backParams={backParams}
-          />
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {players.map((sp, i) => (
+          <div key={sp.player.id} className={`animate-fade-in-up stagger-${(i % 6) + 1} card-hover`}>
+            <DreamTeamCard
+              player={sp.player}
+              score={sp.score}
+              teamLabel={sp.teamLabel}
+              backParams={backParams}
+            />
+          </div>
         ))}
       </div>
     </div>
