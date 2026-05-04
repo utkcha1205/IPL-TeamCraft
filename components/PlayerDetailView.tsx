@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Player, getDisplayRole } from "@/data/types";
+import Footer from "@/components/Footer";
 import { getAggregateStats } from "@/lib/statsUtils";
 import { getTeamConfig, getPlayerImageUrl, getTeamLogoUrl } from "@/lib/teamConfig";
 import ProgressGraphSection from "@/components/ProgressGraphSection";
@@ -241,6 +242,7 @@ export default function PlayerDetailView({ player }: PlayerDetailViewProps) {
           </table>
         </div>
       </section>
+      <Footer />
     </div>
   );
 }

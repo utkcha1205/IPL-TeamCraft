@@ -9,6 +9,7 @@ import RunnerCard from "@/components/RunnerCard";
 import AggregateSummary from "@/components/AggregateSummary";
 import CoverageDisplay from "@/components/CoverageDisplay";
 import ComponentFlowDiagram from "@/components/ComponentFlowDiagram";
+import Footer from "@/components/Footer";
 
 type TestType = "unit" | "integration" | "e2e" | "property";
 
@@ -116,9 +117,12 @@ export default function TestDashboard() {
 
       <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
         {loading && (
-          <p style={{ color: "var(--text-muted)" }} className="text-center py-12">
-            Loading...
-          </p>
+          <div className="flex flex-col items-center justify-center py-20 animate-fade-in">
+            <span className="spinner-dark mb-3" style={{ width: 32, height: 32, borderWidth: 3 }} />
+            <p style={{ color: "var(--text-muted)" }} className="text-sm">
+              Loading test reports...
+            </p>
+          </div>
         )}
 
         {error && (
@@ -420,6 +424,7 @@ export default function TestDashboard() {
           </div>
         )}
       </main>
+      <Footer />
     </div>
   );
 }

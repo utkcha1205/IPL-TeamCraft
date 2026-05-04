@@ -12,6 +12,7 @@ import FilterPanel from "@/components/FilterPanel";
 import SortControls from "@/components/SortControls";
 import PlayerCard from "@/components/PlayerCard";
 import ThemeToggle from "@/components/ThemeToggle";
+import Footer from "@/components/Footer";
 
 const allPlayers = getAllPlayers();
 const PAGE_SIZE = 24;
@@ -178,6 +179,7 @@ export default function Home() {
           </div>
         )}
       </main>
+      <Footer />
     </div>
   );
 }

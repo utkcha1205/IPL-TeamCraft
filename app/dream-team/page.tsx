@@ -14,6 +14,7 @@ import {
 import TeamPicker from "@/components/TeamPicker";
 import DreamTeamCard from "@/components/DreamTeamCard";
 import ThemeToggle from "@/components/ThemeToggle";
+import Footer from "@/components/Footer";
 
 const allPlayers = getAllPlayers();
 
@@ -70,6 +71,7 @@ function DreamTeamContent() {
   }, [searchParams]);
 
   const [result, setResult] = useState<DreamXIResult | null>(initialResult);
+  const [generating, setGenerating] = useState(false);
 
   // Sync state to URL whenever teams/season change
   const updateUrl = (a: string | null, b: string | null, season: string) => {
@@ -112,14 +114,19 @@ function DreamTeamContent() {
 
   const handleGenerate = () => {
     if (!canGenerate) return;
-    const dreamXI = selectDreamXI(
-      allPlayers,
-      teamA,
-      teamB,
-      selectedSeason || undefined
-    );
-    setResult(dreamXI);
-    updateUrl(teamA, teamB, selectedSeason);
+    setGenerating(true);
+    // Use setTimeout to allow the spinner to render before heavy computation
+    setTimeout(() => {
+      const dreamXI = selectDreamXI(
+        allPlayers,
+        teamA,
+        teamB,
+        selectedSeason || undefined
+      );
+      setResult(dreamXI);
+      updateUrl(teamA, teamB, selectedSeason);
+      setGenerating(false);
+    }, 50);
   };
 
   const grouped = result ? groupByRole(result.players) : null;
@@ -204,11 +211,12 @@ function DreamTeamContent() {
             <button
               type="button"
               data-testid="generate-btn"
-              disabled={!canGenerate}
+              disabled={!canGenerate || generating}
               onClick={handleGenerate}
-              className="rounded-lg bg-blue-600 px-6 py-2 text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
+              className="rounded-lg bg-blue-600 px-6 py-2 text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:cursor-not-allowed disabled:opacity-50 inline-flex items-center gap-2"
             >
-              Generate Dream XI
+              {generating && <span className="spinner" />}
+              {generating ? "Generating..." : "Generate Dream XI"}
             </button>
           </div>
         </section>
@@ -254,6 +262,7 @@ function DreamTeamContent() {
           </section>
         )}
       </main>
+      <Footer />
     </div>
   );
 }

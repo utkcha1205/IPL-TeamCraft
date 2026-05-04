@@ -5,11 +5,13 @@ import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { getPlayerById } from "@/data/players";
 import PlayerComparisonView from "@/components/PlayerComparisonView";
+import Footer from "@/components/Footer";
 
 export default function ComparePage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: 'var(--bg-page)' }}>
+      <div className="min-h-screen flex flex-col items-center justify-center" style={{ backgroundColor: 'var(--bg-page)' }}>
+        <span className="spinner-dark mb-3" style={{ width: 32, height: 32, borderWidth: 3 }} />
         <p style={{ color: 'var(--text-muted)' }}>Loading comparison…</p>
       </div>
     }>
@@ -55,6 +57,7 @@ function CompareContent() {
           <PlayerComparisonView players={players} />
         )}
       </main>
+      <Footer />
     </div>
   );
 }

@@ -16,6 +16,7 @@ import type { LeaderboardCategory, LeaderboardResult } from "@/lib/leaderboardEn
 import LeaderboardCard from "@/components/LeaderboardCard";
 import HeroPodium from "@/components/HeroPodium";
 import ThemeToggle from "@/components/ThemeToggle";
+import Footer from "@/components/Footer";
 
 const allPlayers = getAllPlayers();
 
@@ -200,6 +201,7 @@ export default function ChampionsPage() {
           </>
         )}
       </main>
+      <Footer />
     </div>
   );
 }
