@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+:root {
+  --bg-page: #f9fafb;
+  --bg-card: #ffffff;
+  --bg-header: #ffffff;
+  --bg-input: #ffffff;
+  --bg-badge: #f3f4f6;
+  --text-primary: #111827;
+  --text-secondary: #4b5563;
+  --text-muted: #6b7280;
+  --text-badge: #374151;
+  --border-color: #e5e7eb;
+  --border-hover: #d1d5db;
+  --foreground: #171717;
+  --background: #ffffff;
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+.dark {
+  --bg-page: #111827;
+  --bg-card: #1f2937;
+  --bg-header: #1f2937;
+  --bg-input: #1f2937;
+  --bg-badge: #374151;
+  --text-primary: #f3f4f6;
+  --text-secondary: #d1d5db;
+  --text-muted: #9ca3af;
+  --text-badge: #d1d5db;
+  --border-color: #374151;
+  --border-hover: #4b5563;
+  --foreground: #ededed;
+  --background: #0a0a0a;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--bg-page);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.35s;
+  animation-timing-function: ease-in-out;
+}
